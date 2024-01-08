@@ -63,6 +63,10 @@ class User(db.Model):
 
 
 
+with app.app_context():
+    db.create_all()
+
+
 
 #create a test route
 @app.route('/test', methods=['GET'])
@@ -109,8 +113,7 @@ def index():
     return 'Im master'
 
 
-with app.app_context():
-    db.create_all()
+
 
 
 

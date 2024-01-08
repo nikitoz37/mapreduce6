@@ -7,13 +7,13 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
-    #environment:
-    #  POSTGRES_PASSWORD: postgres
-    #  POSTGRES_USER: postgres
-    #  POSTGRES_DB: top_words_db
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: top_words_db
     volumes:
       - pgdata:/var/lib/postgresql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    #  - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   master:
     container_name: master
@@ -22,7 +22,7 @@ services:
       context: ./master
       dockerfile: master.Dockerfile
     environment:
-      DB_URL: postgresql://admin:123@db:5432/top_words_db
+      DB_URL: postgresql://postgres:postgres@db:5432/top_words_db
     ports:
       - "8000:5000"
     depends_on:
